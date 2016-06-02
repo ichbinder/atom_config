@@ -1,0 +1,6 @@
+/home/jakob/.gtkrc-2.0:39: Bilddatei konnte nicht in pixmap_path gefunden werden: »Null/null.png«
+/home/jakob/.gtkrc-2.0:41: Background image options specified without filename
+ATTENTION: option value of option force_s3tc_enable ignored.
+App load time: 580ms
+ATTENTION: option value of option force_s3tc_enable ignored.
+(electron) app.getDataPath is deprecated. Use app.getPath instead.

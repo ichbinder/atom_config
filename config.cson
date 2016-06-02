@@ -1,0 +1,34 @@
+"*":
+  core:
+    projectHome: "/home/jakob/git"
+  editor:
+    showIndentGuide: true
+  "exception-reporting":
+    softWrap: true
+    userId: "fe6fcfc8-3def-2fdc-c992-95e68448b02d"
+  fonts:
+    fontFamily: "FiraCode"
+    preview: "The Quick brown fox { 0 !== \"O\" } "
+  "git-control": {}
+  "git-plus": {}
+  linter: {}
+  minimap:
+    plugins:
+      "find-and-replace": true
+      "find-and-replaceDecorationsZIndex": 0
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+      "highlight-selected": true
+      "highlight-selectedDecorationsZIndex": 0
+      linter: true
+      linterDecorationsZIndex: 0
+  "split-diff":
+    diffWords: true
+    ignoreWhitespace: true
+    leftEditorColor: "red"
+    rightEditorColor: "green"
+    syncHorizontalScroll: true
+  "tree-view-git-branch":
+    location: "before"
+  welcome:
+    showOnStartup: false

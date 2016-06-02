@@ -1,0 +1,80 @@
+const ldap = require( 'ldapjs' );
+
+const client = ldap.createClient( {
+  url: 'ldaps://login-dc-01.login.htw-berlin.de'
+} );
+
+// Bind as the administrator (or a read-only user), to get the DN for
+// the user attempting to authenticate
+client.bind( 'CN=s0531600,OU=idmusers,DC=login,DC=htw-berlin,DC=de', 'Hallo_23', ( err ) => {
+  // If there is an error, tell the user about it. Normally we would
+  // log the incident, but in this application the user is really an LDAP
+  // administrator.
+  if ( err != null )
+    console.log( `Error: ${err}` );
+  else {
+    const opts = {
+      filter: '(sn=selmanagic)',
+      scope: 'sub',
+      //attributes: ['dn', 'sn', 'cn']
+    };
+
+    client.search( 'ou=idmusers,dc=login,dc=htw-berlin,dc=de', opts, ( errSearch, ldapResult ) => {
+      if ( errSearch != null )
+        throw errSearch;
+
+        // If we get to the end and there is no DN, it means there is no such user.
+      ldapResult.on( 'end', () => {
+        // if (sessionData.dn === "")
+        //   res.send("No such user " + sessionData.uid);
+        console.log( 'entry cn: ' );
+      } );
+
+      // If we get a result, then there is such a user.
+      ldapResult.on( 'searchEntry', ( entry ) => {
+        console.log( `entry cn: ${entry.dn}` );
+        console.log( `entry IDName: ${entry.object.cn}` );
+        console.log( `entry Uid: ${entry.object.uid}` );
+        console.log( `entry Vorname: ${entry.object.givenName}` );
+        console.log( `entry Nachname: ${entry.object.sn}` );
+        console.log( `entry E-Mail: ${entry.object.mail}` );
+        console.log( `entry employeeType: ${entry.object.employeeType}` );
+        console.log( `entry: ${JSON.stringify( entry.object )}` );
+      } );
+    } );
+
+    client.unbind( ( unbindErr ) => {
+      if ( unbindErr != null )
+        throw unbindErr;
+    } );
+  }
+} );
+
+
+//   res.on('searchEntry', function(entry) {
+//     console.log('entry: ' + JSON.stringify(entry.object));
+//   });
+//   res.on('searchReference', function(referral) {
+//     console.log('referral: ' + referral.uris.join());
+//   });
+//   res.on('error', function(err) {
+//     console.error('error: ' + err.message);
+//   });
+//   res.on('end', function(result) {
+//     console.log('status: ' + result.status);
+//   });
+// });
+
+// client.bind('cn=admin,dc=htw-berlin,dc=de', 'ichbin23', function(err) {
+// 	console.log(err);
+
+// 	client.unbind(function(err) {
+//     	assert.ifError(err);
+// 	});
+
+// 	if (err) {
+//     	console.log('Error');
+//     } else {
+//     	console.log('OK');
+// 	}
+// });

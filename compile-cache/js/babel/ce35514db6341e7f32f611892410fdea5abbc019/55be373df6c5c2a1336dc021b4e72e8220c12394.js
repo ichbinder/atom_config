@@ -1,0 +1,34 @@
+'use babel';
+
+function computeWordDiff(oldText, newText, isWhitespaceIgnored) {
+  var JsDiff = require('diff');
+  var wordDiff = JsDiff.diffWordsWithSpace(oldText, newText);
+
+  var addedWords = [];
+  var removedWords = [];
+
+  // split into two lists: added + removed
+  wordDiff.forEach(function (part) {
+    if (part.added) {
+      part.changed = true;
+      addedWords.push(part);
+    } else if (part.removed) {
+      part.changed = true;
+      removedWords.push(part);
+    } else {
+      addedWords.push(part);
+      removedWords.push(part);
+    }
+  });
+
+  return {
+    addedWords: addedWords,
+    removedWords: removedWords
+  };
+}
+
+module.exports = {
+  computeWordDiff: computeWordDiff
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pha29iLy5hdG9tL3BhY2thZ2VzL2dpdC10aW1lLW1hY2hpbmUvbm9kZV9tb2R1bGVzL3NwbGl0LWRpZmYvbGliL2NvbXB1dGUtd29yZC1kaWZmLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLFdBQVcsQ0FBQzs7QUFFWixTQUFTLGVBQWUsQ0FBQyxPQUFlLEVBQUUsT0FBZSxFQUFFLG1CQUE0QixFQUFZO0FBQ2pHLE1BQUksTUFBTSxHQUFHLE9BQU8sQ0FBQyxNQUFNLENBQUMsQ0FBQztBQUM3QixNQUFJLFFBQVEsR0FBRyxNQUFNLENBQUMsa0JBQWtCLENBQUMsT0FBTyxFQUFFLE9BQU8sQ0FBQyxDQUFDOztBQUUzRCxNQUFJLFVBQVUsR0FBRyxFQUFFLENBQUM7QUFDcEIsTUFBSSxZQUFZLEdBQUcsRUFBRSxDQUFDOzs7QUFHdEIsVUFBUSxDQUFDLE9BQU8sQ0FBQyxVQUFBLElBQUksRUFBSTtBQUN2QixRQUFJLElBQUksQ0FBQyxLQUFLLEVBQUU7QUFDZCxVQUFJLENBQUMsT0FBTyxHQUFHLElBQUksQ0FBQztBQUNwQixnQkFBVSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztLQUN2QixNQUFNLElBQUksSUFBSSxDQUFDLE9BQU8sRUFBRTtBQUN2QixVQUFJLENBQUMsT0FBTyxHQUFHLElBQUksQ0FBQztBQUNwQixrQkFBWSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztLQUN6QixNQUFNO0FBQ0wsZ0JBQVUsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7QUFDdEIsa0JBQVksQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7S0FDekI7R0FDRixDQUFDLENBQUE7O0FBRUYsU0FBTztBQUNMLGNBQVUsRUFBVixVQUFVO0FBQ1YsZ0JBQVksRUFBWixZQUFZO0dBQ2IsQ0FBQztDQUNIOztBQUVELE1BQU0sQ0FBQyxPQUFPLEdBQUc7QUFDZixpQkFBZSxFQUFmLGVBQWU7Q0FDaEIsQ0FBQyIsImZpbGUiOiIvaG9tZS9qYWtvYi8uYXRvbS9wYWNrYWdlcy9naXQtdGltZS1tYWNoaW5lL25vZGVfbW9kdWxlcy9zcGxpdC1kaWZmL2xpYi9jb21wdXRlLXdvcmQtZGlmZi5qcyIsInNvdXJjZXNDb250ZW50IjpbIid1c2UgYmFiZWwnO1xuXG5mdW5jdGlvbiBjb21wdXRlV29yZERpZmYob2xkVGV4dDogc3RyaW5nLCBuZXdUZXh0OiBzdHJpbmcsIGlzV2hpdGVzcGFjZUlnbm9yZWQ6IGJvb2xlYW4pOiBXb3JkRGlmZiB7XG4gIHZhciBKc0RpZmYgPSByZXF1aXJlKCdkaWZmJyk7XG4gIHZhciB3b3JkRGlmZiA9IEpzRGlmZi5kaWZmV29yZHNXaXRoU3BhY2Uob2xkVGV4dCwgbmV3VGV4dCk7XG5cbiAgdmFyIGFkZGVkV29yZHMgPSBbXTtcbiAgdmFyIHJlbW92ZWRXb3JkcyA9IFtdO1xuXG4gIC8vIHNwbGl0IGludG8gdHdvIGxpc3RzOiBhZGRlZCArIHJlbW92ZWRcbiAgd29yZERpZmYuZm9yRWFjaChwYXJ0ID0+IHtcbiAgICBpZiAocGFydC5hZGRlZCkge1xuICAgICAgcGFydC5jaGFuZ2VkID0gdHJ1ZTtcbiAgICAgIGFkZGVkV29yZHMucHVzaChwYXJ0KTtcbiAgICB9IGVsc2UgaWYgKHBhcnQucmVtb3ZlZCkge1xuICAgICAgcGFydC5jaGFuZ2VkID0gdHJ1ZTtcbiAgICAgIHJlbW92ZWRXb3Jkcy5wdXNoKHBhcnQpO1xuICAgIH0gZWxzZSB7XG4gICAgICBhZGRlZFdvcmRzLnB1c2gocGFydCk7XG4gICAgICByZW1vdmVkV29yZHMucHVzaChwYXJ0KTtcbiAgICB9XG4gIH0pXG5cbiAgcmV0dXJuIHtcbiAgICBhZGRlZFdvcmRzLFxuICAgIHJlbW92ZWRXb3JkcyxcbiAgfTtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSB7XG4gIGNvbXB1dGVXb3JkRGlmZlxufTtcbiJdfQ==
+//# sourceURL=/home/jakob/.atom/packages/git-time-machine/node_modules/split-diff/lib/compute-word-diff.js

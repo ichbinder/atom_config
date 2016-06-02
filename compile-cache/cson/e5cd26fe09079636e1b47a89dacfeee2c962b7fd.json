@@ -1,0 +1,1 @@
+{"menu":[{"label":"Packages","submenu":[{"label":"Keyboard-localization","submenu":[{"label":"Open Keymap Generator","command":"keyboard-localization:keymap-generator"}]}]}]}

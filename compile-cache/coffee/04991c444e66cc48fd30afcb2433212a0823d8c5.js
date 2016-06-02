@@ -1,0 +1,33 @@
+(function() {
+  var OutputViewManager, git, notifier;
+
+  git = require('../git');
+
+  notifier = require('../notifier');
+
+  OutputViewManager = require('../output-view-manager');
+
+  module.exports = function(repo, _arg) {
+    var args, cwd, message;
+    message = (_arg != null ? _arg : {}).message;
+    cwd = repo.getWorkingDirectory();
+    args = ['stash', 'save'];
+    if (message) {
+      args.push(message);
+    }
+    return git.cmd(args, {
+      cwd: cwd
+    }).then(function(msg) {
+      if (msg !== '') {
+        return OutputViewManager["new"]().addLine(msg).finish();
+      }
+    })["catch"](function(msg) {
+      return notifier.addInfo(msg);
+    });
+  };
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAiZmlsZSI6ICIiLAogICJzb3VyY2VSb290IjogIiIsCiAgInNvdXJjZXMiOiBbCiAgICAiL2hvbWUvamFrb2IvLmF0b20vcGFja2FnZXMvZ2l0LXBsdXMvbGliL21vZGVscy9naXQtc3Rhc2gtc2F2ZS5jb2ZmZWUiCiAgXSwKICAibmFtZXMiOiBbXSwKICAibWFwcGluZ3MiOiAiQUFBQTtBQUFBLE1BQUEsZ0NBQUE7O0FBQUEsRUFBQSxHQUFBLEdBQU0sT0FBQSxDQUFRLFFBQVIsQ0FBTixDQUFBOztBQUFBLEVBQ0EsUUFBQSxHQUFXLE9BQUEsQ0FBUSxhQUFSLENBRFgsQ0FBQTs7QUFBQSxFQUVBLGlCQUFBLEdBQW9CLE9BQUEsQ0FBUSx3QkFBUixDQUZwQixDQUFBOztBQUFBLEVBSUEsTUFBTSxDQUFDLE9BQVAsR0FBaUIsU0FBQyxJQUFELEVBQU8sSUFBUCxHQUFBO0FBQ2YsUUFBQSxrQkFBQTtBQUFBLElBRHVCLDBCQUFELE9BQVUsSUFBVCxPQUN2QixDQUFBO0FBQUEsSUFBQSxHQUFBLEdBQU0sSUFBSSxDQUFDLG1CQUFMLENBQUEsQ0FBTixDQUFBO0FBQUEsSUFDQSxJQUFBLEdBQU8sQ0FBQyxPQUFELEVBQVUsTUFBVixDQURQLENBQUE7QUFFQSxJQUFBLElBQXNCLE9BQXRCO0FBQUEsTUFBQSxJQUFJLENBQUMsSUFBTCxDQUFVLE9BQVYsQ0FBQSxDQUFBO0tBRkE7V0FHQSxHQUFHLENBQUMsR0FBSixDQUFRLElBQVIsRUFBYztBQUFBLE1BQUMsS0FBQSxHQUFEO0tBQWQsQ0FDQSxDQUFDLElBREQsQ0FDTSxTQUFDLEdBQUQsR0FBQTtBQUNKLE1BQUEsSUFBaUQsR0FBQSxLQUFTLEVBQTFEO2VBQUEsaUJBQWlCLENBQUMsS0FBRCxDQUFqQixDQUFBLENBQXVCLENBQUMsT0FBeEIsQ0FBZ0MsR0FBaEMsQ0FBb0MsQ0FBQyxNQUFyQyxDQUFBLEVBQUE7T0FESTtJQUFBLENBRE4sQ0FHQSxDQUFDLE9BQUQsQ0FIQSxDQUdPLFNBQUMsR0FBRCxHQUFBO2FBQ0wsUUFBUSxDQUFDLE9BQVQsQ0FBaUIsR0FBakIsRUFESztJQUFBLENBSFAsRUFKZTtFQUFBLENBSmpCLENBQUE7QUFBQSIKfQ==
+
+//# sourceURL=/home/jakob/.atom/packages/git-plus/lib/models/git-stash-save.coffee

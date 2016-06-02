@@ -1,0 +1,22 @@
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.addEventListener = addEventListener;
+exports.insertBefore = insertBefore;
+
+var _atom = require('atom');
+
+'use babel';
+
+function addEventListener(el, event, cb) {
+  el.addEventListener(event, cb);
+  return new _atom.Disposable(function () {
+    return el.removeEventListener(event, cb);
+  });
+}
+
+function insertBefore(targetNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(targetNode, referenceNode);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pha29iLy5hdG9tL3BhY2thZ2VzL3RyZWUtdmlldy1naXQtYnJhbmNoL2xpYi91dGlscy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7b0JBQ3lCLE1BQU07O0FBRC9CLFdBQVcsQ0FBQzs7QUFHTCxTQUFTLGdCQUFnQixDQUFDLEVBQUUsRUFBRSxLQUFLLEVBQUUsRUFBRSxFQUFFO0FBQzlDLElBQUUsQ0FBQyxnQkFBZ0IsQ0FBQyxLQUFLLEVBQUUsRUFBRSxDQUFDLENBQUM7QUFDL0IsU0FBTyxxQkFBZTtXQUNwQixFQUFFLENBQUMsbUJBQW1CLENBQUMsS0FBSyxFQUFFLEVBQUUsQ0FBQztHQUFBLENBQ2xDLENBQUM7Q0FDSDs7QUFFTSxTQUFTLFlBQVksQ0FBQyxVQUFVLEVBQUUsYUFBYSxFQUFFO0FBQ3RELGVBQWEsQ0FBQyxVQUFVLENBQUMsWUFBWSxDQUFDLFVBQVUsRUFBRSxhQUFhLENBQUMsQ0FBQztDQUNsRSIsImZpbGUiOiIvaG9tZS9qYWtvYi8uYXRvbS9wYWNrYWdlcy90cmVlLXZpZXctZ2l0LWJyYW5jaC9saWIvdXRpbHMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIGJhYmVsJztcbmltcG9ydCB7RGlzcG9zYWJsZX0gZnJvbSAnYXRvbSc7XG5cbmV4cG9ydCBmdW5jdGlvbiBhZGRFdmVudExpc3RlbmVyKGVsLCBldmVudCwgY2IpIHtcbiAgZWwuYWRkRXZlbnRMaXN0ZW5lcihldmVudCwgY2IpO1xuICByZXR1cm4gbmV3IERpc3Bvc2FibGUoKCkgPT5cbiAgICBlbC5yZW1vdmVFdmVudExpc3RlbmVyKGV2ZW50LCBjYilcbiAgKTtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGluc2VydEJlZm9yZSh0YXJnZXROb2RlLCByZWZlcmVuY2VOb2RlKSB7XG4gIHJlZmVyZW5jZU5vZGUucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUodGFyZ2V0Tm9kZSwgcmVmZXJlbmNlTm9kZSk7XG59XG4iXX0=
+//# sourceURL=/home/jakob/.atom/packages/tree-view-git-branch/lib/utils.js

@@ -1,0 +1,54 @@
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/** @babel */
+/* eslint-env jasmine, atomtest */
+
+/* This file contains all specs to ensure the base-functionality of
+this plugin. */
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var projectRoot = _path2['default'].join(__dirname, 'fixtures');
+var filePath = _path2['default'].join(projectRoot, 'base.txt');
+
+describe('editorconfig', function () {
+	var textEditor = null;
+
+	beforeEach(function () {
+		waitsForPromise(function () {
+			return Promise.all([atom.packages.activatePackage('editorconfig'), atom.workspace.open(filePath)]).then(function (results) {
+				textEditor = results[1];
+			});
+		});
+	});
+
+	it('should provide the EditorConfig:generate-config command', function () {
+		var isAvailable = false;
+		atom.commands.findCommands({ target: atom.views.getView(atom.workspace) }).forEach(function (command) {
+			if (command.name === 'EditorConfig:generate-config') {
+				isAvailable = true;
+			}
+		});
+		expect(isAvailable).toBeTruthy();
+	});
+
+	it('should have set the indent_style to "space"', function () {
+		expect(textEditor.getSoftTabs()).toBeTruthy();
+	});
+
+	it('should have set the indent_size to 4 characters', function () {
+		expect(textEditor.getTabLength()).toEqual(4);
+	});
+
+	it('should have set the end_of_line-character to "lf"', function () {
+		expect(textEditor.getBuffer().getPreferredLineEnding()).toMatch("\n");
+	});
+
+	it('should have set the charset of the document to "utf8"', function () {
+		expect(textEditor.getEncoding()).toMatch('utf8');
+	});
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pha29iLy5hdG9tL3BhY2thZ2VzL2VkaXRvcmNvbmZpZy9zcGVjL2Jhc2Utc3BlYy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztvQkFNaUIsTUFBTTs7OztBQUV2QixJQUFNLFdBQVcsR0FBRyxrQkFBSyxJQUFJLENBQUMsU0FBUyxFQUFFLFVBQVUsQ0FBQyxDQUFDO0FBQ3JELElBQU0sUUFBUSxHQUFHLGtCQUFLLElBQUksQ0FBQyxXQUFXLEVBQUUsVUFBVSxDQUFDLENBQUM7O0FBRXBELFFBQVEsQ0FBQyxjQUFjLEVBQUUsWUFBTTtBQUM5QixLQUFJLFVBQVUsR0FBRyxJQUFJLENBQUM7O0FBRXRCLFdBQVUsQ0FBQyxZQUFNO0FBQ2hCLGlCQUFlLENBQUM7VUFDZixPQUFPLENBQUMsR0FBRyxDQUFDLENBQ1gsSUFBSSxDQUFDLFFBQVEsQ0FBQyxlQUFlLENBQUMsY0FBYyxDQUFDLEVBQzdDLElBQUksQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUM3QixDQUFDLENBQUMsSUFBSSxDQUFDLFVBQUEsT0FBTyxFQUFJO0FBQ2xCLGNBQVUsR0FBRyxPQUFPLENBQUMsQ0FBQyxDQUFDLENBQUM7SUFDeEIsQ0FBQztHQUFBLENBQ0YsQ0FBQztFQUNGLENBQUMsQ0FBQzs7QUFFSCxHQUFFLENBQUMseURBQXlELEVBQUUsWUFBTTtBQUNuRSxNQUFJLFdBQVcsR0FBRyxLQUFLLENBQUM7QUFDeEIsTUFBSSxDQUFDLFFBQVEsQ0FBQyxZQUFZLENBQUMsRUFBQyxNQUFNLEVBQUUsSUFBSSxDQUFDLEtBQUssQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxFQUFDLENBQUMsQ0FDdEUsT0FBTyxDQUFDLFVBQUEsT0FBTyxFQUFJO0FBQ25CLE9BQUksT0FBTyxDQUFDLElBQUksS0FBSyw4QkFBOEIsRUFBRTtBQUNwRCxlQUFXLEdBQUcsSUFBSSxDQUFDO0lBQ25CO0dBQ0QsQ0FBQyxDQUFDO0FBQ0osUUFBTSxDQUFDLFdBQVcsQ0FBQyxDQUFDLFVBQVUsRUFBRSxDQUFDO0VBQ2pDLENBQUMsQ0FBQzs7QUFFSCxHQUFFLENBQUMsNkNBQTZDLEVBQUUsWUFBTTtBQUN2RCxRQUFNLENBQUMsVUFBVSxDQUFDLFdBQVcsRUFBRSxDQUFDLENBQUMsVUFBVSxFQUFFLENBQUM7RUFDOUMsQ0FBQyxDQUFDOztBQUVILEdBQUUsQ0FBQyxpREFBaUQsRUFBRSxZQUFNO0FBQzNELFFBQU0sQ0FBQyxVQUFVLENBQUMsWUFBWSxFQUFFLENBQUMsQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLENBQUM7RUFDN0MsQ0FBQyxDQUFDOztBQUVILEdBQUUsQ0FBQyxtREFBbUQsRUFBRSxZQUFNO0FBQzdELFFBQU0sQ0FBQyxVQUFVLENBQUMsU0FBUyxFQUFFLENBQUMsc0JBQXNCLEVBQUUsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsQ0FBQztFQUN0RSxDQUFDLENBQUM7O0FBRUgsR0FBRSxDQUFDLHVEQUF1RCxFQUFFLFlBQU07QUFDakUsUUFBTSxDQUFDLFVBQVUsQ0FBQyxXQUFXLEVBQUUsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxNQUFNLENBQUMsQ0FBQztFQUNqRCxDQUFDLENBQUM7Q0FDSCxDQUFDLENBQUMiLCJmaWxlIjoiL2hvbWUvamFrb2IvLmF0b20vcGFja2FnZXMvZWRpdG9yY29uZmlnL3NwZWMvYmFzZS1zcGVjLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqIEBiYWJlbCAqL1xuLyogZXNsaW50LWVudiBqYXNtaW5lLCBhdG9tdGVzdCAqL1xuXG4vKiBUaGlzIGZpbGUgY29udGFpbnMgYWxsIHNwZWNzIHRvIGVuc3VyZSB0aGUgYmFzZS1mdW5jdGlvbmFsaXR5IG9mXG50aGlzIHBsdWdpbi4gKi9cblxuaW1wb3J0IHBhdGggZnJvbSAncGF0aCc7XG5cbmNvbnN0IHByb2plY3RSb290ID0gcGF0aC5qb2luKF9fZGlybmFtZSwgJ2ZpeHR1cmVzJyk7XG5jb25zdCBmaWxlUGF0aCA9IHBhdGguam9pbihwcm9qZWN0Um9vdCwgJ2Jhc2UudHh0Jyk7XG5cbmRlc2NyaWJlKCdlZGl0b3Jjb25maWcnLCAoKSA9PiB7XG5cdGxldCB0ZXh0RWRpdG9yID0gbnVsbDtcblxuXHRiZWZvcmVFYWNoKCgpID0+IHtcblx0XHR3YWl0c0ZvclByb21pc2UoKCkgPT5cblx0XHRcdFByb21pc2UuYWxsKFtcblx0XHRcdFx0YXRvbS5wYWNrYWdlcy5hY3RpdmF0ZVBhY2thZ2UoJ2VkaXRvcmNvbmZpZycpLFxuXHRcdFx0XHRhdG9tLndvcmtzcGFjZS5vcGVuKGZpbGVQYXRoKVxuXHRcdFx0XSkudGhlbihyZXN1bHRzID0+IHtcblx0XHRcdFx0dGV4dEVkaXRvciA9IHJlc3VsdHNbMV07XG5cdFx0XHR9KVxuXHRcdCk7XG5cdH0pO1xuXG5cdGl0KCdzaG91bGQgcHJvdmlkZSB0aGUgRWRpdG9yQ29uZmlnOmdlbmVyYXRlLWNvbmZpZyBjb21tYW5kJywgKCkgPT4ge1xuXHRcdGxldCBpc0F2YWlsYWJsZSA9IGZhbHNlO1xuXHRcdGF0b20uY29tbWFuZHMuZmluZENvbW1hbmRzKHt0YXJnZXQ6IGF0b20udmlld3MuZ2V0VmlldyhhdG9tLndvcmtzcGFjZSl9KVxuXHRcdFx0LmZvckVhY2goY29tbWFuZCA9PiB7XG5cdFx0XHRcdGlmIChjb21tYW5kLm5hbWUgPT09ICdFZGl0b3JDb25maWc6Z2VuZXJhdGUtY29uZmlnJykge1xuXHRcdFx0XHRcdGlzQXZhaWxhYmxlID0gdHJ1ZTtcblx0XHRcdFx0fVxuXHRcdFx0fSk7XG5cdFx0ZXhwZWN0KGlzQXZhaWxhYmxlKS50b0JlVHJ1dGh5KCk7XG5cdH0pO1xuXG5cdGl0KCdzaG91bGQgaGF2ZSBzZXQgdGhlIGluZGVudF9zdHlsZSB0byBcInNwYWNlXCInLCAoKSA9PiB7XG5cdFx0ZXhwZWN0KHRleHRFZGl0b3IuZ2V0U29mdFRhYnMoKSkudG9CZVRydXRoeSgpO1xuXHR9KTtcblxuXHRpdCgnc2hvdWxkIGhhdmUgc2V0IHRoZSBpbmRlbnRfc2l6ZSB0byA0IGNoYXJhY3RlcnMnLCAoKSA9PiB7XG5cdFx0ZXhwZWN0KHRleHRFZGl0b3IuZ2V0VGFiTGVuZ3RoKCkpLnRvRXF1YWwoNCk7XG5cdH0pO1xuXG5cdGl0KCdzaG91bGQgaGF2ZSBzZXQgdGhlIGVuZF9vZl9saW5lLWNoYXJhY3RlciB0byBcImxmXCInLCAoKSA9PiB7XG5cdFx0ZXhwZWN0KHRleHRFZGl0b3IuZ2V0QnVmZmVyKCkuZ2V0UHJlZmVycmVkTGluZUVuZGluZygpKS50b01hdGNoKFwiXFxuXCIpO1xuXHR9KTtcblxuXHRpdCgnc2hvdWxkIGhhdmUgc2V0IHRoZSBjaGFyc2V0IG9mIHRoZSBkb2N1bWVudCB0byBcInV0ZjhcIicsICgpID0+IHtcblx0XHRleHBlY3QodGV4dEVkaXRvci5nZXRFbmNvZGluZygpKS50b01hdGNoKCd1dGY4Jyk7XG5cdH0pO1xufSk7XG4iXX0=
+//# sourceURL=/home/jakob/.atom/packages/editorconfig/spec/base-spec.js
